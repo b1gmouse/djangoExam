@@ -1,6 +1,6 @@
-from django_filters import FilterSet, ModelChoiceFilter, CharFilter
+from django_filters import FilterSet, ModelChoiceFilter, CharFilter, DateFilter
 from django.contrib.auth.models import User
-
+from django.forms import DateInput
 from .models import Post, Replies, News
 
 class PostFilter(FilterSet):
@@ -47,13 +47,22 @@ class RepliesFilter(FilterSet):
 
 
 class NewsFilter(FilterSet):
+    time_in = DateFilter(
+        field_name='time_in',
+        lookup_expr='gt',
+        label='Опубликовано с',
+        widget=DateInput(format='%Y-%m-%d', attrs={'type': 'date'}),
+    )
+
     title = CharFilter(
         lookup_expr='icontains',
         label='Заголовок содержит',
     )
+
     text = CharFilter(
         lookup_expr='icontains',
         label='Текст содержит',
+        # widget=TextInput(attrs={'class': 'form-control'}),
     )
 
     class Meta:

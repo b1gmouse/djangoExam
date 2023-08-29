@@ -20,7 +20,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-b3-+!en^cc__s!$u+!p_4tgcpu5m^_wkx+v$#$ta)1o$0dxr(x'
+from django.utils.crypto import get_random_string
+chars = 'abcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*(-_=+)'
+SECRET_KEY = get_random_string(50, chars)
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -142,17 +144,19 @@ AUTHENTICATION_BACKENDS = [
     'allauth.account.auth_backends.AuthenticationBackend',
 ]
 
-ACCOUNT_EMAIL_REQUIRED = True
-ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
-ACCOUNT_AUTHENTICATION_METHOD = 'username_email'
 
-LOGIN_REDIRECT_URL = "/board/posts"
+
+LOGIN_REDIRECT_URL = 'pass'
+LOGOUT_REDIRECT_URL = "login"
 
 SITE_URL = 'http://127.0.0.1:8000'
 
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_PORT = 587
-EMAIL_HOST_USER = 'youremail@gmail.com'
-EMAIL_HOST_PASSWORD = "WRITE THAT PASSWORD HERE"
-EMAIL_USE_TLS = True
+EMAIL_HOST = os.getenv('EMAIL_HOST')
+EMAIL_PORT = os.getenv('EMAIL_PORT')
+EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
+EMAIL_USE_SSL = True
+EMAIL_HOST_EMAIL = os.getenv('EMAIL_HOST_EMAIL')
+DEFAULT_FROM_EMAIL = f'MMORPG Board <{EMAIL_HOST_EMAIL}>'
+SERVER_EMAIL = f'Доска Объявлений MMORPG<{EMAIL_HOST_EMAIL}>'
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'

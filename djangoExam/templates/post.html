@@ -14,7 +14,9 @@ Post {{ post.pk }}
     <h6>{{ post.time_in|date:'d M Y l' }}</h6>
     <p>&nbsp;</p>
     <p>{{ post.text }}</p>
-    <img src="{{ post.pictures.url }}" height="300" width="250"  />
+    {% if post.pictures %}
+    <img src="{{ post.pictures.url }}" height="300" width="250" />
+    {% endif %}
     {% if perms.appboard.change_post and user == post.author %}
         <p>_____</p>
         <a href="">
@@ -22,7 +24,7 @@ Post {{ post.pk }}
     {% elif user.is_authenticated %}
         <hr>
         <p>&nbsp;</p>
-        <form action="" method="post">
+        <form action="{% url 'reply_create' pk=post.pk %}?next={{ request.path }}" method="post">
             {% csrf_token %}
             <input type="hidden" name="pk" id="pk" value="{{ post.pk }}">
             <p><label for="reply_text">Написать отклик:</label></p>

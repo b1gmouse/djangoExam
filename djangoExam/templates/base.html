@@ -32,17 +32,17 @@
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav ml-auto">
                         <li class="nav-item">
-                            <a class="nav-link" href="">Hi!</a>
+                            <a class="nav-link" href="pass/">Hi!</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="">Новости</a>
+                            <a class="nav-link" href="news/">Новости</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="">Объявления</a>
+                            <a class="nav-link" href="posts/">Объявления</a>
                         </li>
                         {% if perms.appboard.add_post %}
                         <li class="nav-item">
-                            <a class="nav-link" href="">Новое объявление</a>
+                            <a class="nav-link" href="post_create/">Новое объявление</a>
                         </li>
                         {% endif %}
                     </ul>
@@ -51,21 +51,21 @@
                     <ul class="navbar-nav ml-auto">
                         {% if user.is_active and user.is_authenticated %}
                             <li class="nav-item">
-                                <a class="nav-link" href="">Отклики</a>
+                                <a class="nav-link" href="{% url 'replies_list' %}">Отклики</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="">
+                                <a class="nav-link" href="{% url 'profile_user' pk=user.id %}">
                                     Профиль {{ user.username }}</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="">Выход</a>
+                                <a class="nav-link" href="accounts/logout">Выход</a>
                             </li>
                         {% else %}
                             <li class="nav-item">
-                                <a class="nav-link" href="">Вход</a>
+                                <a class="nav-link" href="accounts/login">Вход</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="">Регистрация</a>
+                                <a class="nav-link" href="accounts/signup">Регистрация</a>
                             </li>
                         {% endif %}
                     </ul>

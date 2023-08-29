@@ -10,7 +10,7 @@ Log in
         <h4>{{ user.username }}, вы уже авторизованы!</h4>
         <hr>
         <p>&nbsp;</p>
-        <a href="">Ваш профиль</a>
+        <a href="{% url 'profile_user' pk=user.id %}">Ваш профиль</a>
     {% else %}
         <p>&nbsp;</p>
         <h2>Вход</h2>

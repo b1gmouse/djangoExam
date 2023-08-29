@@ -46,7 +46,7 @@ class Post(models.Model):
         super().save(*args, **kwargs)
 
     def get_absolute_url(self):
-        return reverse('post_detail', args=[str(self.pk)])
+        return reverse('post', args=[str(self.pk)])
 
 
 class Replies(models.Model):
@@ -82,7 +82,7 @@ class Replies(models.Model):
 class News(models.Model):
     title = models.CharField(max_length=64)
     text = models.TextField()
-    pictures = models.ImageField(upload_to='pictures/%Y-%m-%d/')
+    pictures = models.ImageField(upload_to='pictures', blank=True)
     time_in = models.DateTimeField(auto_now_add=True)
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='news',
                                editable=False, blank=True, null=True, default=None)

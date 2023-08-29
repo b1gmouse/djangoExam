@@ -1,9 +1,11 @@
 from django.urls import path
-from .views import SignUp, UserProfile, signup_mail_view, SignUpConfirm
+
+from .views import ProfileUser, SignUp, signup_mail_sent_view, ConfirmationSignUp
+
 
 urlpatterns = [
-    path('signup', SignUp.as_view(), name='signup'),
-    path('<int:pk>/profile/', UserProfile.as_view(), name='user_profile'),
-    path('signup_mail_sent', signup_mail_view, name='signup_mail'),
-    path('<int:pk>/confirm_signup', SignUpConfirm.as_view(), name='confirmation_signup'),
+    path('<int:pk>/profile/', ProfileUser.as_view(), name='profile_user'),
+    path('signup/', SignUp.as_view(), name='signup'),
+    path('signup_mail_sent/', signup_mail_sent_view, name='signup_mail_sent'),
+    path('<int:pk>/confirmation_signup/', ConfirmationSignUp.as_view(), name='confirmation_signup'),
 ]

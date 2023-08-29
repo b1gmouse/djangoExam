@@ -55,7 +55,7 @@ class SignUpForm(UserCreationForm):
         return user
 
 
-class SignUpConfirmForm(forms.ModelForm):
+class ConfirmationSignUpForm(forms.ModelForm):
     code = forms.IntegerField()
 
     class Meta:
